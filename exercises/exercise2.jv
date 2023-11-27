@@ -1,0 +1,92 @@
+pipeline Ex2Pipeline {
+    Ex2HttpExtractor
+        -> Ex2TextFileInterpreter
+        -> Ex2CSVInterpreter
+        -> StatusColumnDeleter
+        -> Ex2TableInterpreter
+        -> Ex2SQLiteLoader;
+    
+    block Ex2HttpExtractor oftype HttpExtractor {
+        url: "https://download-data.deutschebahn.com/static/datasets/haltestellen/D_Bahnhof_2020_alle.CSV";
+        // retries
+        // retryBackoffMilliseconds
+        // retryBackoffStrategy
+        // followRedirects
+    }
+
+    block Ex2TextFileInterpreter oftype TextFileInterpreter {
+        // encoding
+        // lineBreak
+    }
+
+    block Ex2CSVInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+        // enclosing
+        // enclosingEscape
+    }
+
+    block StatusColumnDeleter oftype ColumnDeleter {
+        delete: [column J];
+    }
+
+    block Ex2TableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "EVA_NR" oftype integer,
+            "DS100" oftype TextWithoutEmpty,
+            "IFOPT" oftype IFOPT,
+            "NAME" oftype TextWithoutEmpty,
+            "Verkehr" oftype VerkehrCode,
+            "Laenge" oftype Laenge,
+            "Breite" oftype Breite,
+            "Betreiber_Name" oftype TextWithoutEmpty,
+            "Betreiber_Nr" oftype decimal,
+        ];
+    }
+
+    block Ex2SQLiteLoader oftype SQLiteLoader {
+        table: "trainstops";
+        file: "./trainstops.sqlite";
+        dropTable: true;
+    }
+}
+
+valuetype TextWithoutEmpty oftype text {
+    constraints: [NoEmptyValues];
+}
+
+constraint NoEmptyValues oftype DenylistConstraint {
+    denylist: [""];
+}
+
+valuetype VerkehrCode oftype TextWithoutEmpty {
+        constraints: [
+            VerkehrCodeAllowedValues,
+        ];
+    }
+
+constraint VerkehrCodeAllowedValues on text:
+    value in [
+        "FV", "RV", "nur DPN",
+    ];
+
+valuetype Laenge oftype integer {
+    constraints: [LangenAndBreitenConstraint];
+}
+
+valuetype Breite oftype integer {
+    constraints: [LangenAndBreitenConstraint];
+}
+
+constraint LangenAndBreitenConstraint oftype RangeConstraint {
+    lowerBound: -90;
+    upperBound: 90;
+}
+
+valuetype IFOPT oftype TextWithoutEmpty {
+    constraints: [IFOPTConstraint];
+}
+
+constraint IFOPTConstraint oftype RegexConstraint {
+    regex: /^..:[0-9]*:[0-9]*(:[0-9]*)?$/;
+}
