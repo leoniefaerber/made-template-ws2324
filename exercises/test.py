@@ -1,12 +1,12 @@
 import sqlalchemy as sa
-from sqlalchemy.types import BIGINT, TEXT, FLOAT
 import pandas as pd
 
+# can be used to to extract a csv file from an url and load the data into a sqlite database
 
 def automated_pipeline():
 
     # files
-    source_url = "https://download-data.deutschebahn.com/static/datasets/haltestellen/D_Bahnhof_2020_alle.CSV"
+    source_url = ""
     db_file = 'test.sqlite'
 
     # extract data from source (delimiter = ';')

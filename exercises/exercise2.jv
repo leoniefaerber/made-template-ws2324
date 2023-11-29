@@ -33,13 +33,13 @@ pipeline Ex2Pipeline {
         header: true;
         columns: [
             "EVA_NR" oftype integer,
-            "DS100" oftype TextWithoutEmpty,
+            "DS100" oftype text,
             "IFOPT" oftype IFOPT,
-            "NAME" oftype TextWithoutEmpty,
+            "NAME" oftype text,
             "Verkehr" oftype VerkehrCode,
             "Laenge" oftype Laenge,
             "Breite" oftype Breite,
-            "Betreiber_Name" oftype TextWithoutEmpty,
+            "Betreiber_Name" oftype text,
             "Betreiber_Nr" oftype decimal,
         ];
     }
@@ -51,15 +51,7 @@ pipeline Ex2Pipeline {
     }
 }
 
-valuetype TextWithoutEmpty oftype text {
-    constraints: [NoEmptyValues];
-}
-
-constraint NoEmptyValues oftype DenylistConstraint {
-    denylist: [""];
-}
-
-valuetype VerkehrCode oftype TextWithoutEmpty {
+valuetype VerkehrCode oftype text {
         constraints: [
             VerkehrCodeAllowedValues,
         ];
@@ -83,10 +75,10 @@ constraint LangenAndBreitenConstraint oftype RangeConstraint {
     upperBound: 90;
 }
 
-valuetype IFOPT oftype TextWithoutEmpty {
+valuetype IFOPT oftype text {
     constraints: [IFOPTConstraint];
 }
 
 constraint IFOPTConstraint oftype RegexConstraint {
-    regex: /^..:[0-9]*:[0-9]*(:[0-9]*)?$/;
+    regex: /^[a-z]{2}:[0-9]+:[0-9]+(?::[0-9]*)?$/;
 }
