@@ -80,5 +80,5 @@ valuetype IFOPT oftype text {
 }
 
 constraint IFOPTConstraint oftype RegexConstraint {
-    regex: /^[a-z]{2}:[0-9]+:[0-9]+(?::[0-9]*)?$/;
+    regex: /^[a-z]{2}:[0-9]+:[0-9]+(?::[0-9]+)?$/;
 }
