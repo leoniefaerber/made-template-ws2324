@@ -62,11 +62,11 @@ constraint VerkehrCodeAllowedValues on text:
         "FV", "RV", "nur DPN",
     ];
 
-valuetype Laenge oftype integer {
+valuetype Laenge oftype decimal {
     constraints: [LangenAndBreitenConstraint];
 }
 
-valuetype Breite oftype integer {
+valuetype Breite oftype decimal {
     constraints: [LangenAndBreitenConstraint];
 }
 

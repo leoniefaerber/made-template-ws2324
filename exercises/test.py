@@ -6,7 +6,7 @@ import pandas as pd
 def automated_pipeline():
 
     # files
-    source_url = "https://download-data.deutschebahn.com/static/datasets/haltestellen/D_Bahnhof_2020_alle.CSV"
+    source_url = ""
     db_file = 'test.sqlite'
 
     # extract data from source (delimiter = ';')
