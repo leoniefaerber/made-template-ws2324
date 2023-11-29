@@ -40,7 +40,7 @@ pipeline Ex2Pipeline {
             "Laenge" oftype Laenge,
             "Breite" oftype Breite,
             "Betreiber_Name" oftype text,
-            "Betreiber_Nr" oftype decimal,
+            "Betreiber_Nr" oftype integer,
         ];
     }
 
