@@ -7,26 +7,16 @@ import sqlalchemy as sa
 from sqlalchemy.types import BIGINT, TEXT, FLOAT
 import pandas as pd
 
-def load_to_file(data, db_file, db_name, dtype):
+def load_to_sqlite_file(data, db_file, db_name, dtype):
 
     # sqlite engine (three slashes for relative path)
     engine = sa.create_engine(f'sqlite:///data/{db_file}')
 
     # load to file (replaces file content if already exists; no index; uses declared dtype)
     data.to_sql(db_name, con=engine, if_exists='replace', index=False, dtype=dtype)
-   
+     
 
-if __name__ == '__main__':
-
-    # data urls
-    activtiy_source_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/HLTH_EHIS_PE2E/?format=SDMX-CSV&lang=de&label=label_only'
-    mental_health_source_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/hlth_ehis_mh1e/?format=SDMX-CSV&lang=de&label=label_only'
-    general_health_source_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/hlth_silc_02/?format=SDMX-CSV&lang=de&label=label_only'
-    
-    # activity data
-
-    # extract
-    activity_data = pd.read_csv(activtiy_source_url)
+def create_activity_table(activity_data, db_file, db_name):
 
     # clean
     # drop not needed columns
@@ -55,13 +45,10 @@ if __name__ == '__main__':
         'obs_value': FLOAT,
         'obs_flag': TEXT
     }
-    load_to_file(activity_data, 'activity.sqlite', 'activity', activity_dtype)
+    load_to_sqlite_file(activity_data, db_file, db_name, activity_dtype)
 
 
-    # mental health data
-
-    # extract
-    mental_health_data = pd.read_csv(mental_health_source_url)
+def create_mental_health_table(mental_health_data, db_file, db_name):
 
     # clean
     # drop not needed columns
@@ -90,12 +77,10 @@ if __name__ == '__main__':
         'obs_value': FLOAT,
         'obs_flag': TEXT
     }
-    load_to_file(mental_health_data, 'mental_health.sqlite', 'mental health', mental_health_dtype)
+    load_to_sqlite_file(mental_health_data, db_file, db_name, mental_health_dtype)
 
-    # general health data
 
-    # extract
-    general_health_data = pd.read_csv(general_health_source_url)
+def create_general_health_table(general_health_data, db_file, db_name):
 
     # clean
     # drop not needed columns
@@ -124,4 +109,25 @@ if __name__ == '__main__':
         'obs_value': FLOAT,
         'obs_flag': TEXT
     }
-    load_to_file(general_health_data, 'general_health.sqlite', 'general health', general_health_dtype)
+    load_to_sqlite_file(general_health_data, db_file, db_name, general_health_dtype)
+
+
+def create_all_tables():
+
+    activtiy_source_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/HLTH_EHIS_PE2E/?format=SDMX-CSV&lang=de&label=label_only'
+    activity_data = pd.read_csv(activtiy_source_url)
+    create_activity_table(activity_data, 'activity.sqlite', 'activity')
+
+
+    mental_health_source_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/hlth_ehis_mh1e/?format=SDMX-CSV&lang=de&label=label_only'
+    mental_health_data = pd.read_csv(mental_health_source_url)
+    create_mental_health_table(mental_health_data, 'mental_health.sqlite', 'mental_health')
+
+    general_health_source_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/hlth_silc_02/?format=SDMX-CSV&lang=de&label=label_only'
+    general_health_data = pd.read_csv(general_health_source_url)
+    create_general_health_table(general_health_data, 'general_health.sqlite', 'general_health')
+
+
+if __name__ == '__main__':
+    create_all_tables()
+
