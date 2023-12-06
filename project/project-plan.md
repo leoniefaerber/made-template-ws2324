@@ -39,12 +39,14 @@ Self-report on helth by country and year
 
 1. Write Automated Data Pipeline [#1][i1]
 2. Analyze Data Sources [#2][i2]
-2. Clean Data [#3][i3]
-3. Analyze Cleaned Data [#4][i4]
-4. Write Report [#5][i5]
+3. Clean Data [#3][i3]
+4. Add Automated Test Cases [#4][i4]
+5. Analyze Cleaned Data [#5][i5]
+6. Write Report [#6][i6]
 
 [i1]: https://github.com/leoniefaerber/made-template-ws2324/issues/5
 [i2]: https://github.com/leoniefaerber/made-template-ws2324/issues/1
 [i3]: https://github.com/leoniefaerber/made-template-ws2324/issues/2
-[i4]: https://github.com/leoniefaerber/made-template-ws2324/issues/3
-[i5]: https://github.com/leoniefaerber/made-template-ws2324/issues/4
+[i4]: https://github.com/leoniefaerber/made-template-ws2324/issues/6
+[i5]: https://github.com/leoniefaerber/made-template-ws2324/issues/3
+[i6]: https://github.com/leoniefaerber/made-template-ws2324/issues/4
