@@ -33,5 +33,5 @@ jobs:
     # Run project tests
     - name: Project tests
       run: |
-        chmod +x ./main/project/tests.sh
-        ./main/project/tests.sh
+        chmod +x ./project/tests.sh
+        ./project/tests.sh
