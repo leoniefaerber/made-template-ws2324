@@ -1,0 +1,42 @@
+name: Project Tests
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - project/**
+
+jobs:
+  project-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        path: main
+        
+    - name: Checkout exercise feedback
+      uses: actions/checkout@v3
+      with:
+        repository: leoniefaerber/made-template-ws2324
+        path: project
+
+    # Install python
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+      
+    # Install pandas
+    - name: Install pandas
+      run: python -m pip install --upgrade pip pandas
+
+    # Install sqlalchemy
+    - name: Install sqlalchemy
+      run: python -m pip install --upgrade pip sqlalchemy
+
+    # Run project tests
+    - name: Project tests
+      run: |
+        ./tests.sh
