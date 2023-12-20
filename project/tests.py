@@ -42,7 +42,7 @@ class TestPipeline(unittest.TestCase):
         result = pd.read_sql("SELECT * FROM activity_test", conn)
         conn.close
 
-        self.assertEqual(len(result.columns), 10)
+        self.assertEqual(len(result.columns), 11)   # should be 10; wrong assert to check CI
         self.assertEqual(len(result), 3)
     
     def test_mental_health_pipeline(self):
