@@ -32,7 +32,7 @@ Current depressive symptoms by country and year.
 * Data URL: https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/hlth_silc_02/?format=SDMX-CSV&lang=de&label=label_only
 * Data Type: CSV
 
-Self-report on helth by country and year
+Self-report on health by country and year
 
 
 ## Work Packages
