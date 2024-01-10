@@ -13,7 +13,7 @@ Over the last decades, the rate of people living a more sedentary lifestyle in E
 
 ## Datasources
 
-### Datasource1: Time spent on pyhsical activity
+### Datasource1: Time spent on physical activity
 * Metadata URL: https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_pe2e$dv_300/default/table?lang=de
 * Data URL: https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/HLTH_EHIS_PE2E/?format=SDMX-CSV&lang=en&label=label_only
 * Data Type: CSV
