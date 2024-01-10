@@ -43,6 +43,9 @@ Self-report on health by country and year
 4. Add Automated Test Cases [#4][i4]
 5. Analyze Cleaned Data [#5][i5]
 6. Write Report [#6][i6]
+7. Make Repository Presentable [#7][i7]
+8. Project Präsentation [#8][i8]
+9. Course Exit Survey [#9][i9]
 
 [i1]: https://github.com/leoniefaerber/made-template-ws2324/issues/5
 [i2]: https://github.com/leoniefaerber/made-template-ws2324/issues/1
@@ -50,3 +53,6 @@ Self-report on health by country and year
 [i4]: https://github.com/leoniefaerber/made-template-ws2324/issues/6
 [i5]: https://github.com/leoniefaerber/made-template-ws2324/issues/3
 [i6]: https://github.com/leoniefaerber/made-template-ws2324/issues/4
+[i7]: https://github.com/leoniefaerber/made-template-ws2324/issues/8
+[i8]: https://github.com/leoniefaerber/made-template-ws2324/issues/10
+[i9]: https://github.com/leoniefaerber/made-template-ws2324/issues/9
