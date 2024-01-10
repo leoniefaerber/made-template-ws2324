@@ -20,16 +20,17 @@ class TestPipeline(unittest.TestCase):
         
 
     def test_activity_pipeline(self):
+        # [dataflow, last_update, freq, unit, duration, isced11, sex, age, geo, time_period, value, flag]
         activity_data = pd.DataFrame(
             [
-                [None, None, 'test', 'test', 'test', 'test',
-                    'test', 'test', 'test', 0, 0.0, 'test'], 
-                [None, None, 'test', 'test', 'test', 'test',
-                    'test', 'test', 'test', 0, 0.0, 'test'],
-                [None, None, 'test', 'test', 'test', 'test',
-                'test', 'test', 'test', 0, 0.0, 'test'],
+                [None, None, 'Annual', 'Percentage', 'Zero minutes', 'All ISCED 2011 levels',
+                    'Total', 'Total', 'test', 2014, 0.0, None], 
+                [None, None, 'Annual', 'Percentage', 'Zero minutes', 'All ISCED 2011 levels',
+                    'Total', 'Total', 'test', 2019, 0.0, None],
+                [None, None, 'Annual', 'Liters', 'Zero minutes', 'All ISCED 2011 levels',
+                    'Total', 'Total', 'test', 2014, 0.0, None], # unit not 'Percentage'
                 [None, None, None, None, None, None,
-                    None, None, None, 0, 0.0, None]
+                    None, None, None, 0, None, None] # None values in non null columns
             ], 
             columns=['DATAFLOW', 'LAST UPDATE', 'freq', 'unit', 'duration', 'isced11', 'sex', 'age', 
                      'geo','TIME_PERIOD', 'OBS_VALUE', 'OBS_FLAG'])
@@ -42,20 +43,21 @@ class TestPipeline(unittest.TestCase):
         result = pd.read_sql("SELECT * FROM activity_test", conn)
         conn.close
 
-        self.assertEqual(len(result.columns), 10)
-        self.assertEqual(len(result), 3)
+        self.assertEqual(len(result.columns), 4)
+        self.assertEqual(len(result), 2)
     
     def test_mental_health_pipeline(self):
+        # [dataflow, last_update, freq, unit, isced11, hlth_pb, sex, age, geo, time_period, value, flag]
         mental_health_data = pd.DataFrame(
             [
-                [None, None, 'test', 'test', 'test', 'test',
-                    'test', 'test', 'test', 0, 0.0, 'test'], 
-                [None, None, 'test', 'test', 'test', 'test',
-                    'test', 'test', 'test', 0, 0.0, 'test'],
-                [None, None, 'test', 'test', 'test', 'test',
-                'test', 'test', 'test', 0, 0.0, 'test'],
+                [None, None, 'Annual', 'Percentage', 'All ISCED 2011 levels', 'Other depressive symptoms',
+                    'Total', 'Total', 'test', 2014, 0.0, None], 
+                [None, None, 'Annual', 'Percentage', 'All ISCED 2011 levels', 'Other depressive symptoms',
+                    'Total', 'Total', 'test', 2014, 0.0, None], 
+                [None, None, 'Monthly', 'Percentage', 'All ISCED 2011 levels', 'Other depressive symptoms',
+                    'Total', 'Total', 'test', 2014, 0.0, None], # freq not 'Annual'
                 [None, None, None, None, None, None,
-                    None, None, None, 0, 0.0, None]
+                    None, None, None, 0, 0.0, None] # None values in non null columns
             ], 
             columns=['DATAFLOW', 'LAST UPDATE', 'freq', 'unit', 'isced11', 'hlth_pb',
                     'sex', 'age', 'geo','TIME_PERIOD', 'OBS_VALUE', 'OBS_FLAG'])
@@ -68,21 +70,22 @@ class TestPipeline(unittest.TestCase):
         result = pd.read_sql("SELECT * FROM mental_health_test", conn)
         conn.close
 
-        self.assertEqual(len(result.columns), 10)
-        self.assertEqual(len(result), 3)
+        self.assertEqual(len(result.columns), 4)
+        self.assertEqual(len(result), 2)
 
     
     def test_general_health_pipeline(self):
+        # [dataflow, last_update, freq, unit, isced11, age, sex, levels, geo, time_period, value, flag]
         general_health_data = pd.DataFrame(
             [
-                [None, None, 'test', 'test', 'test', 'test',
-                    'test', 'test', 'test', 0, 0.0, 'test'], 
-                [None, None, 'test', 'test', 'test', 'test',
-                    'test', 'test', 'test', 0, 0.0, 'test'],
-                [None, None, 'test', 'test', 'test', 'test',
-                'test', 'test', 'test', 0, 0.0, 'test'],
+                [None, None, 'Annual', 'Percentage', 'All ISCED 2011 levels', 
+                    '16 years or over', 'Total', 'Good', 'test', 2014, 0.0, None], 
+                [None, None, 'Annual', 'Percentage', 'All ISCED 2011 levels', 
+                    '16 years or over', 'Total', 'Good', 'test', 2014, 0.0, None], 
+                [None, None, 'Annual', 'Percentage', 'All ISCED 2011 levels', 
+                    '16 years or over', 'Total', 'Good' 'test', 2014, 0.0, 'u'], # flag should be None
                 [None, None, None, None, None, None,
-                    None, None, None, 0, 0.0, None]
+                    None, None, None, 0, 0.0, None] # None values in non null columns
             ], 
             columns=['DATAFLOW', 'LAST UPDATE', 'freq', 'unit', 'isced11', 'age',
                     'sex', 'levels', 'geo','TIME_PERIOD', 'OBS_VALUE', 'OBS_FLAG'])
@@ -95,8 +98,8 @@ class TestPipeline(unittest.TestCase):
         result = pd.read_sql("SELECT * FROM general_health_test", conn)
         conn.close
 
-        self.assertEqual(len(result.columns), 10)
-        self.assertEqual(len(result), 3)
+        self.assertEqual(len(result.columns), 4)
+        self.assertEqual(len(result), 2)
 
 if __name__ == '__main__':
     unittest.main()
