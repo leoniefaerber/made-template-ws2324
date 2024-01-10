@@ -2,16 +2,20 @@ import unittest
 import pipeline
 import sqlite3
 import pandas as pd
+import sqlalchemy as sa
 
 class TestPipeline(unittest.TestCase):
 
+    def setUp(self):
+        # create a common SQLite engine for all test methods
+        self.engine = sa.create_engine('sqlite:///data/test.sqlite')
+
     def test_load_to_sqlite_file(self):
         data = pd.DataFrame([[1, 2, 3], [1, 2, 3]], columns=["a", "b", "c"])
-        db_file = "load_test.sqlite"
         db_name = "load_test"
-        test_file_path = "data/load_test.sqlite"
+        test_file_path = "data/test.sqlite"
 
-        pipeline.load_to_sqlite_file(data, db_file, db_name, [])
+        pipeline.load_to_sqlite_file(data, db_name, [], self.engine)
         conn = sqlite3.connect(test_file_path)
         result = pd.read_sql("SELECT * FROM load_test", conn)
         conn.close
@@ -34,11 +38,10 @@ class TestPipeline(unittest.TestCase):
             ], 
             columns=['DATAFLOW', 'LAST UPDATE', 'freq', 'unit', 'duration', 'isced11', 'sex', 'age', 
                      'geo','TIME_PERIOD', 'OBS_VALUE', 'OBS_FLAG'])
-        db_file = "activity_test.sqlite"
         db_name = "activity_test"
-        activity_test_file_path = "data/activity_test.sqlite"
+        activity_test_file_path = "data/test.sqlite"
 
-        pipeline.create_activity_table(activity_data, db_file, db_name)
+        pipeline.create_activity_table(activity_data, db_name, self.engine)
         conn = sqlite3.connect(activity_test_file_path)
         result = pd.read_sql("SELECT * FROM activity_test", conn)
         conn.close
@@ -61,11 +64,10 @@ class TestPipeline(unittest.TestCase):
             ], 
             columns=['DATAFLOW', 'LAST UPDATE', 'freq', 'unit', 'isced11', 'hlth_pb',
                     'sex', 'age', 'geo','TIME_PERIOD', 'OBS_VALUE', 'OBS_FLAG'])
-        db_file = "mental_health_test.sqlite"
         db_name = "mental_health_test"
-        mental_health_test_file_path = "data/mental_health_test.sqlite"
+        mental_health_test_file_path = "data/test.sqlite"
 
-        pipeline.create_mental_health_table(mental_health_data, db_file, db_name)
+        pipeline.create_mental_health_table(mental_health_data, db_name, self.engine)
         conn = sqlite3.connect(mental_health_test_file_path)
         result = pd.read_sql("SELECT * FROM mental_health_test", conn)
         conn.close
@@ -89,11 +91,10 @@ class TestPipeline(unittest.TestCase):
             ], 
             columns=['DATAFLOW', 'LAST UPDATE', 'freq', 'unit', 'isced11', 'age',
                     'sex', 'levels', 'geo','TIME_PERIOD', 'OBS_VALUE', 'OBS_FLAG'])
-        db_file = "general_health_test.sqlite"
         db_name = "general_health_test"
-        general_health_test_file_path = "data/general_health_test.sqlite"
+        general_health_test_file_path = "data/test.sqlite"
 
-        pipeline.create_general_health_table(general_health_data, db_file, db_name)
+        pipeline.create_general_health_table(general_health_data, db_name, self.engine)
         conn = sqlite3.connect(general_health_test_file_path)
         result = pd.read_sql("SELECT * FROM general_health_test", conn)
         conn.close

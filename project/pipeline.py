@@ -7,10 +7,7 @@ import sqlalchemy as sa
 from sqlalchemy.types import BIGINT, TEXT, FLOAT
 import pandas as pd
 
-def load_to_sqlite_file(data, db_file, db_name, dtype):
-
-    # sqlite engine (three slashes for relative path)
-    engine = sa.create_engine(f'sqlite:///data/{db_file}')
+def load_to_sqlite_file(data, db_name, dtype, engine):
 
     # load to file (replaces file content if already exists; no index; uses declared dtype)
     data.to_sql(db_name, con=engine, if_exists='replace', index=False, dtype=dtype)
@@ -55,7 +52,7 @@ def drop_columns(df):
 
      
 
-def create_activity_table(activity_data, db_file, db_name):
+def create_activity_table(activity_data, db_name, engine):
 
     # clean
     activity_data = perform_basic_data_cleaning(activity_data)
@@ -97,11 +94,11 @@ def create_activity_table(activity_data, db_file, db_name):
         'year': BIGINT,
         'percentage_of_population': FLOAT,
     }
-    load_to_sqlite_file(activity_data, db_file, db_name, activity_dtype)
+    load_to_sqlite_file(activity_data, db_name, activity_dtype, engine)
 
 
 
-def create_mental_health_table(mental_health_data, db_file, db_name):
+def create_mental_health_table(mental_health_data, db_name, engine):
 
     # clean
     mental_health_data = perform_basic_data_cleaning(mental_health_data)
@@ -141,10 +138,10 @@ def create_mental_health_table(mental_health_data, db_file, db_name):
         'year': BIGINT,
         'percentage_of_population': FLOAT,
     }
-    load_to_sqlite_file(mental_health_data, db_file, db_name, mental_health_dtype)
+    load_to_sqlite_file(mental_health_data, db_name, mental_health_dtype, engine)
 
 
-def create_general_health_table(general_health_data, db_file, db_name):
+def create_general_health_table(general_health_data, db_name, engine):
 
     # clean
     general_health_data = perform_basic_data_cleaning(general_health_data)
@@ -160,11 +157,11 @@ def create_general_health_table(general_health_data, db_file, db_name):
     
     # map health strings to ints
     general_health_value_mapping = {
-        'Very good': 4, 
-        'Good': 3, 
-        'Fair': 2,
-        'Bad': 1,
-        'Very bad': 0,
+        'Very good': 2, 
+        'Good': 1, 
+        'Fair': 0,
+        'Bad': -1,
+        'Very bad': -2,
     }
     general_health_data.loc[:, 'levels'] = general_health_data['levels'].replace(general_health_value_mapping)
     
@@ -175,35 +172,38 @@ def create_general_health_table(general_health_data, db_file, db_name):
     general_health_column_names = {
         'TIME_PERIOD': 'year',
         'OBS_VALUE': 'percentage_of_population',
-        'levels': 'physical_health',
+        'levels': 'general_health',
         'geo': 'country'
     }
     general_health_data = general_health_data.rename(columns=general_health_column_names)
 
     # load
     general_health_dtype = {
-        'levels': BIGINT,
+        'general_health': BIGINT,
         'country': TEXT,
         'year': BIGINT,
         'percentage_of_population': FLOAT
     }
-    load_to_sqlite_file(general_health_data, db_file, db_name, general_health_dtype)
+    load_to_sqlite_file(general_health_data, db_name, general_health_dtype, engine)
 
 
 def create_all_tables():
 
+    # sqlite engine (three slashes for relative path)
+    engine = sa.create_engine(f'sqlite:///data/result.sqlite')
+
     activty_source_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/HLTH_EHIS_PE2E/?format=SDMX-CSV&lang=en&label=label_only'
     activity_data = pd.read_csv(activty_source_url)
-    create_activity_table(activity_data, 'activity.sqlite', 'activity')
+    create_activity_table(activity_data, 'activity', engine)
 
 
     mental_health_source_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/hlth_ehis_mh1e/?format=SDMX-CSV&lang=en&label=label_only'
     mental_health_data = pd.read_csv(mental_health_source_url)
-    create_mental_health_table(mental_health_data, 'mental_health.sqlite', 'mental_health')
+    create_mental_health_table(mental_health_data, 'mental_health', engine)
 
     general_health_source_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/hlth_silc_02/?format=SDMX-CSV&lang=en&label=label_only'
     general_health_data = pd.read_csv(general_health_source_url)
-    create_general_health_table(general_health_data, 'general_health.sqlite', 'general_health')
+    create_general_health_table(general_health_data, 'general_health', engine)
 
 
 if __name__ == '__main__':
