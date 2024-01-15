@@ -1,42 +1,16 @@
-# Methods of Advanced Data Engineering Template Project
 
-This template project provides some structure for your open data project in the MADE module at FAU.
-This repository contains (a) a data science project that is developed by the student over the course of the semester, and (b) the exercises that are submitted over the course of the semester.
-Before you begin, make sure you have [Python](https://www.python.org/) and [Jayvee](https://github.com/jvalue/jayvee) installed. We will work with [Jupyter notebooks](https://jupyter.org/). The easiest way to do so is to set up [VSCode](https://code.visualstudio.com/) with the [Jupyter extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter).
+# Physical Activity and Health in Europe
 
+[![License](https://img.shields.io/badge/License-CC_BY_4.0-orange)](https://creativecommons.org/licenses/by/4.0/)
+[![Tests](https://github.com/leoniefaerber/made-template-ws2324/actions/workflows/project-tests.yml/badge.svg)](https://github.com/leoniefaerber/made-template-ws2324/actions/workflows/project-tests.yml)
+[![python](https://img.shields.io/badge/Python-3.10-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 
-## Project Work
-Your data engineering project will run alongside lectures during the semester. We will ask you to regularly submit project work as milestones so you can reasonably pace your work. All project work submissions **must** be placed in the `project` folder.
+This repo contains a data project resulting from my participation in the course [Methods of Advanced Data Engineering](https://oss.cs.fau.de/teaching/specific/made/) taught by the [Professorship for Open-Source Software](https://oss.cs.fau.de/) at [FAU](https://www.fau.eu/).
 
-### Exporting a Jupyter Notebook
-Jupyter Notebooks can be exported using `nbconvert` (`pip install nbconvert`). For example, to export the example notebook to html: `jupyter nbconvert --to html examples/final-report-example.ipynb --embed-images --output final-report.html`
+## Description
 
+The project aimed at answering the question of whether physical activity impacts the health of the population in Europe. To evaluate this, open data sources are used, giving insight into activity, general, and mental health levels per European country and year. More about the aim of the project can be found in the [project plan](https://github.com/leoniefaerber/made-template-ws2324/blob/main/project/project-plan.md). In the [project folder](https://github.com/leoniefaerber/made-template-ws2324/tree/main/project), you can find all source code used for obtaining and transforming the data. The [project report](https://github.com/leoniefaerber/made-template-ws2324/blob/main/project/report.ipynb) gives an overview of the final result.  
 
-## Exercises
-During the semester you will need to complete exercises, sometimes using [Python](https://www.python.org/), sometimes using [Jayvee](https://github.com/jvalue/jayvee). You **must** place your submission in the `exercises` folder in your repository and name them according to their number from one to five: `exercise<number from 1-5>.<jv or py>`.
+# Copyright
 
-In regular intervalls, exercises will be given as homework to complete during the semester. We will divide you into two groups, one completing an exercise in Jayvee, the other in Python, switching each exercise. Details and deadlines will be discussed in the lecture, also see the [course schedule](https://made.uni1.de/). At the end of the semester, you will therefore have the following files in your repository:
-
-1. `./exercises/exercise1.jv` or `./exercises/exercise1.py`
-2. `./exercises/exercise2.jv` or `./exercises/exercise2.py`
-3. `./exercises/exercise3.jv` or `./exercises/exercise3.py`
-4. `./exercises/exercise4.jv` or `./exercises/exercise4.py`
-5. `./exercises/exercise5.jv` or `./exercises/exercise5.py`
-
-### Exercise Feedback
-We provide automated exercise feedback using a GitHub action (that is defined in `.github/workflows/exercise-feedback.yml`). 
-
-To view your exercise feedback, navigate to Actions -> Exercise Feedback in your repository.
-
-The exercise feedback is executed whenever you make a change in files in the `exercise` folder and push your local changes to the repository on GitHub. To see the feedback, open the latest GitHub Action run, open the `exercise-feedback` job and `Exercise Feedback` step. You should see command line output that contains output like this:
-
-```sh
-Found exercises/exercise1.jv, executing model...
-Found output file airports.sqlite, grading...
-Grading Exercise 1
-	Overall points 17 of 17
-	---
-	By category:
-		Shape: 4 of 4
-		Types: 13 of 13
-```
+This project uses data sources from [Eurostat](https://ec.europa.eu/eurostat/web/main/home) that are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The title and source link for each data source can be found in the [project plan](https://github.com/leoniefaerber/made-template-ws2324/blob/main/project/project-plan.md).

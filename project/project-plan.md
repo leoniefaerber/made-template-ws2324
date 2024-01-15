@@ -14,23 +14,32 @@ Over the last decades, the rate of people living a more sedentary lifestyle in E
 ## Datasources
 
 ### Datasource1: Time spent on physical activity
+* Title: Time spent on health-enhancing (non-work-related) aerobic physical activity by sex, age and educational attainment level
 * Metadata URL: https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_pe2e$dv_300/default/table?lang=de
 * Data URL: https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/HLTH_EHIS_PE2E/?format=SDMX-CSV&lang=en&label=label_only
 * Data Type: CSV
+* Source of Data: [Eurostat](https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_pe2e$dv_300/default/table)
+* License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 Time spent on health-promoting (non-work-related) physical activity by country and year.
 
 ### Datasource2: Depressive symptoms
+* Title: Current depressive symptoms by sex, age and educational attainment level
 * Metadata URL: https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_mh1e/default/table?lang=de
 * Data URL: https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/hlth_ehis_mh1e/?format=SDMX-CSV&lang=en&label=label_only
 * Data Type: CSV
+* Source of Data: [Eurostat](https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_mh1e/default/table)
+* License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 Current depressive symptoms by country and year.
 
 ### Datasource3: Self-report on general health
+* Title: Self-perceived health by sex, age and educational attainment level
 * Metadata URL: https://ec.europa.eu/eurostat/databrowser/view/hlth_silc_02/default/table?lang=de
 * Data URL: https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/hlth_silc_02/?format=SDMX-CSV&lang=en&label=label_only
 * Data Type: CSV
+* Source of Data: [Eurostat](https://ec.europa.eu/eurostat/databrowser/view/hlth_silc_02/default/table)
+* License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 Self-report on health by country and year
 
