@@ -10,5 +10,3 @@ This repo contains a data project resulting from my participation in the course 
 ## Description
 
 The project aimed at answering the question of whether physical activity impacts the health of the population in Europe. To evaluate this, open data sources are used, giving insight into activity, general, and mental health levels per European country and year. More about the aim of the project can be found in the [project plan](https://github.com/leoniefaerber/made-template-ws2324/blob/main/project/project-plan.md). In the [project folder](https://github.com/leoniefaerber/made-template-ws2324/tree/main/project), you can find all source code used for obtaining and transforming the data. The [project report](https://github.com/leoniefaerber/made-template-ws2324/blob/main/project/report.ipynb) gives an overview of the final result.  
-
-A short [presentation video](https://github.com/leoniefaerber/made-template-ws2324/blob/main/project/presentation-video.md) and [slides](https://github.com/leoniefaerber/made-template-ws2324/blob/main/project/slides.pdf) are available.
