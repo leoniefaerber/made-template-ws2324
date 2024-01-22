@@ -53,7 +53,7 @@ Self-report on health by country and year
 5. Analyze Cleaned Data [#5][i5]
 6. Write Report [#6][i6]
 7. Make Repository Presentable [#7][i7]
-8. Project Präsentation [#8][i8]
+8. Project Presentation [#8][i8]
 9. Course Exit Survey [#9][i9]
 
 [i1]: https://github.com/leoniefaerber/made-template-ws2324/issues/5
