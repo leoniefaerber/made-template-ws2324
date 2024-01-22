@@ -1,0 +1,112 @@
+pipeline Ex4Pipeline {
+
+    Ex4HttpExtractor
+        -> Ex4ArchiveInterpreter
+        -> Ex4FilePicker
+        -> Ex4TextFileInterpreter
+        -> Ex4CSVInterpreter
+        -> Ex4ColumnDeleter
+        -> Ex4TableInterpreter
+        -> Ex4TemperaturTableTransformer
+        -> Ex4BatterietemperaturTableTransformer
+        -> Ex4SQLiteLoader;
+    
+    block Ex4HttpExtractor oftype HttpExtractor {
+        url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
+    }
+
+    block Ex4ArchiveInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    block Ex4FilePicker oftype FilePicker {
+        path: "/data.csv";
+    }
+
+    block Ex4TextFileInterpreter oftype TextFileInterpreter {
+    }
+
+    block Ex4CSVInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+    }
+
+    block Ex4ColumnDeleter oftype ColumnDeleter {
+        delete: [column F, column G, column I, column L];
+    }
+
+    block Ex4TableInterpreter oftype TableInterpreter {
+        header: false;
+        columns: [
+            "Geraet" oftype PosInt,
+            "Hersteller" oftype text,
+            "Model" oftype text,
+            "Monat" oftype Monat,
+            "Temperatur" oftype Celsius,
+            "Batterietemperatur" oftype Celsius,
+            "Geraet aktiv" oftype JaNein,
+        ];
+    }
+
+    block Ex4TemperaturTableTransformer oftype TableTransformer {
+        inputColumns: ["Temperatur"];
+        outputColumn: "Temperatur";
+        use: CelsiusToFarenheit;
+    }
+
+    block Ex4BatterietemperaturTableTransformer oftype TableTransformer {
+        inputColumns: ["Batterietemperatur"];
+        outputColumn: "Batterietemperatur";
+        use: CelsiusToFarenheit;
+    }
+
+    block Ex4SQLiteLoader oftype SQLiteLoader {
+        table: "temperatures";
+        file: "./temperatures.sqlite";
+        dropTable: true;
+    }
+
+    constraint PosIntConstraint oftype RangeConstraint {
+        lowerBound: 1;
+        lowerBoundInclusive: true;
+    }
+
+    valuetype PosInt oftype integer {
+        constraints: [PosIntConstraint];
+    }
+
+    constraint MonatConstraint oftype RangeConstraint {
+        lowerBound: 1;
+        lowerBoundInclusive: true;
+        upperBound: 12;
+        upperBoundInclusive: true;
+    }
+
+    valuetype Monat oftype integer {
+        constraints: [MonatConstraint];
+    }
+
+    constraint CelsiusConstraint oftype RangeConstraint {
+        lowerBound: 0;
+        lowerBoundInclusive: true;
+        upperBound: 100;
+        upperBoundInclusive: true;
+    }
+
+    valuetype Celsius oftype decimal {
+        constraints: [CelsiusConstraint];
+    }
+
+    constraint JaNeinConstraint oftype AllowlistConstraint {
+        allowlist: ["Ja", "Nein"];
+    }
+
+    valuetype JaNein oftype text {
+        constraints: [JaNeinConstraint];
+    }
+
+    transform CelsiusToFarenheit {
+        from Celsius oftype decimal;
+        to Farenheit oftype decimal;
+        Farenheit: (Celsius * 9/5) + 32;
+    }
+}
