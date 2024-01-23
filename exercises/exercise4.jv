@@ -85,10 +85,12 @@ pipeline Ex4Pipeline {
         constraints: [MonatConstraint];
     }
 
+    // bounds are inspired by highest and lowest measured temperatures on earth
+    // with an added tolerance range of about 10°C
     constraint CelsiusConstraint oftype RangeConstraint {
-        lowerBound: 0;
+        lowerBound: -100;
         lowerBoundInclusive: true;
-        upperBound: 200;
+        upperBound: 70;
         upperBoundInclusive: true;
     }
 
