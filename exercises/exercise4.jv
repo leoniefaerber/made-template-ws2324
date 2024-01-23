@@ -88,7 +88,7 @@ pipeline Ex4Pipeline {
     constraint CelsiusConstraint oftype RangeConstraint {
         lowerBound: 0;
         lowerBoundInclusive: true;
-        upperBound: 100;
+        upperBound: 200;
         upperBoundInclusive: true;
     }
 
