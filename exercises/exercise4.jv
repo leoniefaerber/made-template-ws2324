@@ -31,7 +31,7 @@ pipeline Ex4Pipeline {
     }
 
     block Ex4ColumnDeleter oftype ColumnDeleter {
-        delete: [column F, column G, column I, column L];
+        delete: [column F, column G, column H, column I, column L];
     }
 
     block Ex4TableInterpreter oftype TableInterpreter {
@@ -50,13 +50,13 @@ pipeline Ex4Pipeline {
     block Ex4TemperaturTableTransformer oftype TableTransformer {
         inputColumns: ["Temperatur"];
         outputColumn: "Temperatur";
-        use: CelsiusToFarenheit;
+        use: CelsiusToFahrenheit;
     }
 
     block Ex4BatterietemperaturTableTransformer oftype TableTransformer {
         inputColumns: ["Batterietemperatur"];
         outputColumn: "Batterietemperatur";
-        use: CelsiusToFarenheit;
+        use: CelsiusToFahrenheit;
     }
 
     block Ex4SQLiteLoader oftype SQLiteLoader {
@@ -104,9 +104,9 @@ pipeline Ex4Pipeline {
         constraints: [JaNeinConstraint];
     }
 
-    transform CelsiusToFarenheit {
+    transform CelsiusToFahrenheit {
         from Celsius oftype decimal;
-        to Farenheit oftype decimal;
-        Farenheit: (Celsius * 9/5) + 32;
+        to Fahrenheit oftype decimal;
+        Fahrenheit: (Celsius * 9/5) + 32;
     }
 }
